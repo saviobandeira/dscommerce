@@ -10,8 +10,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Column;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 
 import java.time.Instant;
+
+import java.util.Set;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "tb_order")
@@ -31,6 +35,9 @@ public class Order {
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> item = new HashSet<>();
 
     public Order() {
     }
