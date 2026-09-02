@@ -16,6 +16,7 @@ import java.time.Instant;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_order")
@@ -37,7 +38,7 @@ public class Order {
     private Payment payment;
 
     @OneToMany(mappedBy = "id.order")
-    private Set<OrderItem> item = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -88,5 +89,13 @@ public class Order {
 
     public void setPayment(Payment payment) {
         this.payment = payment;
+    }
+
+    public Set<OrderItem> getItem() {
+        return items;
+    }
+
+    public List<Product> getProducts() {
+        return items.stream().map(x -> x.getProduct()).toList();
     }
 }
